@@ -2,11 +2,15 @@
 #define FFLIB_H_INCLUDED
 
 
+#include <stdbool.h>
+#include <stddef.h>
+
+
 enum FF_MODES
 {
-    FF_INVALID  = 0,
-    FF_FILEONLY = 1,
-    FF_FILEDIR  = 2
+    FF_MODE_INVALID  = 0,
+    FF_MODE_FILEONLY = 1,
+    FF_MODE_FILEDIR  = 2
 };
 
 
