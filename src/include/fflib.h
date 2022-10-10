@@ -4,6 +4,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -25,8 +26,9 @@ enum FF_CODES
 
 enum FF_MODES ffGetMode(int argc, const char **argv);
 
-enum FF_CODES ffFindFile(const char *name, const char *dir,
-                    enum FF_MODES mode, size_t *sizeDest, char **pathDest);
+enum FF_CODES
+ffFindFile(const char *name, const char *dir, enum FF_MODES mode,
+                                size_t *sizeDest, char ***pathDest);
 
 
 #endif /* FFLIB_H_INCLUDED */

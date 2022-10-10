@@ -35,8 +35,9 @@ enum FF_MODES ffGetMode(int argc, const char **argv)
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-enum FF_CODES ffFindFile(const char *name, const char *dir,
-                    enum FF_MODES mode, size_t *sizeDest, char **pathDest)
+enum FF_CODES
+ffFindFile(const char *name, const char *dir, enum FF_MODES mode,
+                                size_t *sizeDest, char ***pathDest)
 {
     FF_CHECK(FF_MODE_INVALID != mode, FF_INVALIDMODE);
 
@@ -44,13 +45,16 @@ enum FF_CODES ffFindFile(const char *name, const char *dir,
     FF_CHECK(NULL != sizeDest, FF_NULLPTR);
     FF_CHECK(NULL != pathDest, FF_NULLPTR);
 
-    const char *startdir = ".";
+    const char *curDir = ".";
     if (FF_MODE_FILEDIR == mode)
     {
         FF_CHECK(NULL != dir, FF_NULLPTR);
-        startdir = dir;
+        curDir = dir;
     }
 
+#ifdef BEBUG_PRINT
+    printf(">>> Search file "%s" in directory "%s"\n", file, curDir);
+#endif
 
     return FF_SUCCESS;
 }
