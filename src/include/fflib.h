@@ -1,3 +1,12 @@
+/*!
+ *  \file
+ *
+ *  \author Maxim Moskalets
+ *  \date October, 2022
+ *
+ *  \brief Library for file-finder utility (ff)
+ */
+
 #ifndef FFLIB_H_INCLUDED
 #define FFLIB_H_INCLUDED
 
@@ -11,15 +20,6 @@
 #endif
 
 #include <dirent.h>
-/*!
- *  \file
- *
- *  \author Maxim Moskalets
- *  \date October, 2022
- *
- *  \brief Linrary for file-finder utility (ff)
- */
-
 #include <errno.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -30,6 +30,11 @@
 #include <sys/types.h>
 
 
+/*!
+ *  \brief Macro for checking code of interface function
+ *  \param code Code from enum FF_CODES
+ *  \param ret Expression to be returned in error case
+ */
 #define FF_CHECK_CODE(code, ret)\
 do                               \
 {                                 \
@@ -54,7 +59,7 @@ enum FF_MODES
     FF_MODE_FILEDIR  = 2    /*!< Find file in specified directory */
 };
 
-/*
+/*!
  *  \brief Codes for main interfce functions
  */
 enum FF_CODES
@@ -66,10 +71,14 @@ enum FF_CODES
     FF_MEMERROR    = 4      /*!< Error in memory management function */
 };
 
+
+/*
+ *  \brief Type for founded pathes
+ */
 typedef struct
 {
-    size_t size;
-    char **pathes;
+    size_t size;            /*!< Number of founded pathes */
+    char **pathes;          /*!< Pointer to array with pointers to pathes */
 } pathes_t;
 
 
