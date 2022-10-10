@@ -1,23 +1,31 @@
 #include "fflib.h"
 
 
-#define FF_ASSERT(cond)\
-do                      \
-{                        \
-    assert(cond);         \
-}                          \
+#ifndef NDEBUG
+#define FF_ASSERT(cond, condstr)            \
+do                                           \
+{                                             \
+    if (!cond)                                 \
+    {                                           \
+        fprintf(stderr, "Failed: %s\n", condstr);\
+        abort();                                  \
+    }                                              \
+}                                                   \
 while (false)
+#else
+#define FF_ASSERT(cond) do {} while (false)
+#endif
 
-
-#define FF_CHECK(cond, ret)   \
-do                             \
-{                               \
-    bool FF_CHECK_COND_ = (cond);\
-    if (!FF_CHECK_COND_)          \
-    {                              \
-        return (ret);               \
-    }                                \
-}                                     \
+#define FF_CHECK(cond, ret)      \
+do                                \
+{                                  \
+    bool FF_CHECK_COND_ = (cond);   \
+    FF_ASSERT(FF_CHECK_COND_, #cond);\
+    if (!FF_CHECK_COND_)              \
+    {                                  \
+        return (ret);                   \
+    }                                    \
+}                                         \
 while (false)
 
 
