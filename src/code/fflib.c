@@ -44,6 +44,13 @@ enum FF_CODES ffFindFile(const char *name, const char *dir,
     FF_CHECK(NULL != sizeDest, FF_NULLPTR);
     FF_CHECK(NULL != pathDest, FF_NULLPTR);
 
+    const char *startdir = ".";
+    if (FF_MODE_FILEDIR == mode)
+    {
+        FF_CHECK(NULL != dir, FF_NULLPTR);
+        startdir = dir;
+    }
+
 
     return FF_SUCCESS;
 }
