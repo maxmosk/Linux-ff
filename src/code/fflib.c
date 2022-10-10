@@ -111,8 +111,8 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 enum FF_CODES ffPathesFree(pathes_t *pathes)
 {
     FF_CHECK(NULL != pathes, FF_NULLPTR);
-    FF_CHECK((NULL == pathes->pathes) && (0 == pathes->size) ||
-            (NULL == pathes->pathes) && (0 == pathes->size), FF_NULLPTR);
+    FF_CHECK(((NULL == pathes->pathes) && (0 == pathes->size)) ||
+            ((NULL != pathes->pathes) && (0 != pathes->size)), FF_NULLPTR);
 
 
     for (size_t i = 0; i < pathes->size; i++)
