@@ -3,7 +3,15 @@
 
 
 #include <dirent.h>
+
+#if defined(__linux__) || defined(linux) || defined(__linux)
 #include <linux/limits.h>
+#elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
+#include <Windef.h>
+#else
+#define MAX_PATH 256
+#endif
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
