@@ -16,6 +16,9 @@
 #elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
 #include <Windef.h>
 #else
+/*!
+ *  \brief Maximal path length in case of undefined OS
+ */
 #define MAX_PATH 255
 #endif
 
@@ -72,24 +75,49 @@ enum FF_CODES
 };
 
 
-/*
+/*!
  *  \brief Type for founded pathes
  */
 typedef struct
 {
-    size_t size;            /*!< Number of founded pathes */
-    char **pathes;          /*!< Pointer to array with pointers to pathes */
+    size_t size;            /**< Number of founded pathes */
+    char **pathes;          /**< Pointer to array with pointers to pathes */
 } pathes_t;
 
 
+/*!
+ *  \brief Function to get mode by command line arguments
+ *  \params[in] argc, argv Matching command line arguments
+ *  \retnurn Mode code from emun FF_MODES
+ *  \note See The C Programming Language standard
+ */
 enum FF_MODES ffGetMode(int argc, const char **argv);
 
+/*!
+ *  \brief Function to find files in directory
+ *  \param[in] name String with name to find
+ *  \param[in] dir Search directory name
+ *  \param[in] mode Mode of search
+ *  \param[out] dest Pathes structure for founded names
+ *  \return Status code from enum EE_CODES
+ *  \note Param dir may be NULL in some modes
+ */
 enum FF_CODES
 ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest);
 
+/*!
+ *  \brief Function to free resources used by pathes_t struct
+ *  \param[out] pathes Struct to be freed
+ *  \return Status code from enum EE_CODES
+ */
 enum FF_CODES ffPathesFree(pathes_t *pathes);
 
-void ffperror(enum FF_CODES);
+/*!
+ *  \brief Function to print value of interace function return code and errno
+ *  \param[in] errcode Code from enum FF_CODES
+ *  \note Writes to stderr
+ */
+void ffperror(enum FF_CODES errcode);
 
 
 #endif /* FFLIB_H_INCLUDED */
