@@ -12,12 +12,12 @@
 
 
 /*!
- *  \brief Function to compare two file names (may be regular expressions)
+ *  \brief Function to compare two file names (may be regular expressions it 1st param)
  *  \params[in] name_1, name_2 File names to compare
  *  \return Zero in equal case, non-zero in all other
  *  \warning All args must be valid poingers
  */
-static int namecmp(const void *name_1, const void *name_2);
+static int namecmp(const char *name_1, const char *name_2);
 
 /*!
  *  \brief Function to add file name to pathes struct
@@ -93,7 +93,7 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
         printf(">>> Found file \"%s\"\n", dent->d_name);
 #endif
 
-        if (0 == namecmp(dent->d_name, name))
+        if (0 == namecmp(name, dent->d_name))
         {
             enum FF_CODES status = ffAddName(dest, dent->d_name);
             FF_CHECK(FF_SUCCESS == status, status);
@@ -163,14 +163,34 @@ void ffperror(enum FF_CODES errcode)
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-static int namecmp(const void *name_1, const void *name_2)
+static int namecmp(const char *name_1, const char *name_2)
 {
 #ifdef DEBUG_PRINT
-    printf(">>> Compare name \"%s\" with name \"%s\"\n",
-            (const char *) name_1, (const char *) name_2);
+    printf(">>> Compare name \"%s\" with name \"%s\"\n", name_1, name_2);
 #endif
 
-    return strncmp((const char *) name_1, (const char *) name_2, NAME_MAX);
+    size_t i = SIZE_MAX;
+    size_t j = SIZE_MAX;
+    for (i = 0, j = 0; (name_1[i] != '\0') && (name_2[j] != '\0'); i++, j++)
+    {
+        if ('?' == name_1[i])
+        {
+            continue;
+        }
+
+        else if ('*' == name_1[i])
+        {
+            /* TODO */
+        }
+
+        else if (name_1[i] != name_2[j])
+        {
+            return -1;
+        }
+    }
+
+
+    return name_1[i] != name_2[j];
 }
 /*)---------------------------------------------------------------------------*/
 
