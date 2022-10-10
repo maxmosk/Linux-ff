@@ -2,15 +2,16 @@
 
 
 #ifndef NDEBUG
-#define FF_ASSERT(cond, condstr)            \
-do                                           \
-{                                             \
-    if (!cond)                                 \
-    {                                           \
-        fprintf(stderr, "Failed: %s\n", condstr);\
-        abort();                                  \
-    }                                              \
-}                                                   \
+#define FF_ASSERT(cond, condstr)                                         \
+do                                                                        \
+{                                                                          \
+    if (!cond)                                                              \
+    {                                                                        \
+        fprintf(stderr, "*** Failed: %s in file %s function %s line %d ***\n",\
+                condstr, __FILE__, __PRETTY_FUNCTION__, __LINE__);             \
+        abort();                                                                \
+    }                                                                            \
+}                                                                                 \
 while (false)
 #else
 #define FF_ASSERT(cond) do {} while (false)
