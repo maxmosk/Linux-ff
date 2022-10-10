@@ -47,8 +47,7 @@ enum FF_CODES
     FF_NULLPTR     = 1,
     FF_INVALIDMODE = 2,
     FF_DIRERROR    = 3,
-    FF_ADDERROR    = 4,
-    FF_MEMERROR    = 5
+    FF_MEMERROR    = 4
 };
 
 typedef struct
@@ -64,6 +63,8 @@ enum FF_CODES
 ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest);
 
 enum FF_CODES ffPathesFree(pathes_t *pathes);
+
+void ffperror(enum FF_CODES);
 
 
 #endif /* FFLIB_H_INCLUDED */

@@ -13,8 +13,10 @@ int main(int argc, char **argv)
 
     pathes_t foundPathes = {0};
     enum FF_CODES status = ffFindFile(argv[1], argv[2], mode, &foundPathes);
+    FF_CHECK_CODE(status, EXIT_FAILURE);
 
     status = ffPathesFree(&foundPathes);
+    FF_CHECK_CODE(status, EXIT_FAILURE);
 
 
     return EXIT_SUCCESS;

@@ -109,6 +109,38 @@ enum FF_CODES ffPathesFree(pathes_t *pathes)
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
+void ffperror(enum FF_CODES errcode)
+{
+    const char *error = NULL;
+
+    switch (errcode)
+    {
+        case FF_SUCCESS:
+            error = "Success";
+            break;
+        case FF_NULLPTR:
+            error = "NULL pointer error";
+            break;
+        case FF_INVALIDMODE:
+            error = "Invalid mode value";
+            break;
+        case FF_DIRERROR:
+            error = "Error with directory opening";
+            break;
+        case FF_MEMERROR:
+            error = "Error in memory allocation";
+            break;
+
+        default:
+            error = "Unknowen error";
+    }
+
+    fprintf(stderr, "Code: %s\n", error);
+    fprintf(stderr, "Errno: %s\n", strerror(errno));
+}
+/*)---------------------------------------------------------------------------*/
+
+/*(---------------------------------------------------------------------------*/
 static int namecmp(const void *name_1, const void *name_2)
 {
 #ifdef DEBUG_PRINT
