@@ -2,6 +2,9 @@
 #include "fflib_helper.h"
 
 
+int namecmp(const void *name_1, const void *name_2);
+
+
 /*(---------------------------------------------------------------------------*/
 enum FF_MODES ffGetMode(int argc, const char **argv)
 {
@@ -38,14 +41,13 @@ enum FF_MODES ffGetMode(int argc, const char **argv)
 
 /*(---------------------------------------------------------------------------*/
 enum FF_CODES
-ffFindFile(const char *name, const char *dir, enum FF_MODES mode,
-                                size_t *sizeDest, char ***pathDest)
+ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest)
 {
     FF_CHECK(FF_MODE_INVALID != mode, FF_INVALIDMODE);
 
-    FF_CHECK(NULL != name,     FF_NULLPTR);
-    FF_CHECK(NULL != sizeDest, FF_NULLPTR);
-    FF_CHECK(NULL != pathDest, FF_NULLPTR);
+    FF_CHECK(NULL != name, FF_NULLPTR);
+    FF_CHECK(NULL != dest, FF_NULLPTR);
+
 
     char curDir[PATH_MAX + 1] = ".";
     if (FF_MODE_FILEDIR == mode)
@@ -58,7 +60,30 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode,
     printf(">>> Search file \"%s\" in directory \"%s\"\n", name, curDir);
 #endif
 
+
+    DIR *searchDir = opendir(curDir);
+    FF_CHECK(NULL != searchDir, FF_DIRERROR);
+
+    struct dirent *dent = NULL;
+    while ((dent = readdir(searchDir)) != NULL)
+    {
+#ifdef DEBUG_PRINT
+        printf(">>> Found file \"%s\"\n", dent->d_name);
+#endif
+    }
+
+    FF_CHECK(0 == closedir(searchDir), FF_DIRERROR);
+
+
     return FF_SUCCESS;
+}
+/*)---------------------------------------------------------------------------*/
+
+
+/*(---------------------------------------------------------------------------*/
+int namecmp(const void *name_1, const void *name_2)
+{
+    return strncmp((const char *) name_1, (const char *) name_2, NAME_MAX);
 }
 /*)---------------------------------------------------------------------------*/
 

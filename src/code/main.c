@@ -11,9 +11,8 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
-    size_t nPathes = SIZE_MAX;
-    char **pathes = NULL;
-    ffFindFile(argv[1], argv[2], mode, &nPathes, &pathes);
+    pathes_t foundPathes = {0};
+    ffFindFile(argv[1], argv[2], mode, &foundPathes);
 
     return EXIT_SUCCESS;
 }

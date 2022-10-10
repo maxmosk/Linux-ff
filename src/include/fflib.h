@@ -32,15 +32,21 @@ enum FF_CODES
 {
     FF_SUCCESS     = 0,
     FF_NULLPTR     = 1,
-    FF_INVALIDMODE = 2
+    FF_INVALIDMODE = 2,
+    FF_DIRERROR    = 3
 };
+
+typedef struct
+{
+    size_t n;
+    char **pathes
+} pathes_t;
 
 
 enum FF_MODES ffGetMode(int argc, const char **argv);
 
 enum FF_CODES
-ffFindFile(const char *name, const char *dir, enum FF_MODES mode,
-                                size_t *sizeDest, char ***pathDest);
+ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest);
 
 
 #endif /* FFLIB_H_INCLUDED */
