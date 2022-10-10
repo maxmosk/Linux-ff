@@ -71,7 +71,8 @@ enum FF_CODES
     FF_NULLPTR     = 1,     /*!< Passed NULL-pointer as parametr */
     FF_INVALIDMODE = 2,     /*!< Invalid mode passed as parametr */
     FF_DIRERROR    = 3,     /*!< Error in directory opening */
-    FF_MEMERROR    = 4      /*!< Error in memory management function */
+    FF_MEMERROR    = 4,     /*!< Error in memory management function */
+    FF_FILEERROR   = 5      /*!< Error in file operations */
 };
 
 
@@ -99,7 +100,7 @@ enum FF_MODES ffGetMode(int argc, const char **argv);
  *  \param[in] dir Search directory name
  *  \param[in] mode Mode of search
  *  \param[out] dest Pathes structure for founded names
- *  \return Status code from enum EE_CODES
+ *  \return Status code from enum FF_CODES
  *  \note Param dir may be NULL in some modes
  */
 enum FF_CODES
@@ -108,7 +109,7 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 /*!
  *  \brief Function to free resources used by pathes_t struct
  *  \param[out] pathes Struct to be freed
- *  \return Status code from enum EE_CODES
+ *  \return Status code from enum FF_CODES
  */
 enum FF_CODES ffPathesFree(pathes_t *pathes);
 
@@ -118,6 +119,14 @@ enum FF_CODES ffPathesFree(pathes_t *pathes);
  *  \note Writes to stderr
  */
 void ffperror(enum FF_CODES errcode);
+
+/*!
+ *  \brief Function to write pathes fro, pathes_t struct
+ *  \param[in] osteream Pointer to stream to write pathes
+ *  \param[in] pathes Struct to be written
+ *  \return Status code from enum FF_CODES
+ */
+enum FF_CODES ffWritePathes(FILE *ostream, const pathes_t *pathes);
 
 
 #endif /* FFLIB_H_INCLUDED */

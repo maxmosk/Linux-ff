@@ -23,7 +23,7 @@ static int namecmp(const char *name_1, const char *name_2);
  *  \brief Function to add file name to pathes struct
  *  \param[out] dest Struct to add name
  *  \param[in] name File name that will be added
- *  \return Status code from enum EE_CODES
+ *  \return Status code from enum FF_CODES
  */
 static enum FF_CODES ffAddName(pathes_t *dest, const char *name);
 
@@ -152,6 +152,9 @@ void ffperror(enum FF_CODES errcode)
         case FF_MEMERROR:
             error = "Error in memory allocation";
             break;
+        case FF_FILEERROR:
+            error = "Error in file operations";
+            break;
 
         default:
             error = "Unknowen error";
@@ -224,3 +227,19 @@ static enum FF_CODES ffAddName(pathes_t *dest, const char *name)
 }
 /*)---------------------------------------------------------------------------*/
 
+/*(---------------------------------------------------------------------------*/
+enum FF_CODES ffWritePathes(FILE *ostream, const pathes_t *pathes)
+{
+    FF_CHECK(NULL != ostream, FF_NULLPTR);
+    FF_CHECK(NULL != pathes, FF_NULLPTR);
+    FF_CHECK(((NULL == pathes->pathes) && (0 == pathes->size)) ||
+            ((NULL != pathes->pathes) && (0 != pathes->size)), FF_NULLPTR);
+
+    for (size_t i = 0; i < pathes->size; i++)
+    {
+        FF_CHECK(0 < fprintf(ostream, "%s\n", pathes->pathes[i]), FF_FILEERROR);
+    }
+    
+    return FF_SUCCESS;
+}
+/*)---------------------------------------------------------------------------*/
