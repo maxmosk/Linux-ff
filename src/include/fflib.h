@@ -33,13 +33,15 @@ enum FF_CODES
     FF_SUCCESS     = 0,
     FF_NULLPTR     = 1,
     FF_INVALIDMODE = 2,
-    FF_DIRERROR    = 3
+    FF_DIRERROR    = 3,
+    FF_ADDERROR    = 4,
+    FF_MEMERROR    = 5
 };
 
 typedef struct
 {
-    size_t n;
-    char **pathes
+    size_t size;
+    char **pathes;
 } pathes_t;
 
 

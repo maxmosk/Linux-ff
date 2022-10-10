@@ -4,6 +4,8 @@
 
 int namecmp(const void *name_1, const void *name_2);
 
+enum FF_CODES ffAddName(pathes_t *dest, const char *name);
+
 
 /*(---------------------------------------------------------------------------*/
 enum FF_MODES ffGetMode(int argc, const char **argv)
@@ -70,6 +72,11 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 #ifdef DEBUG_PRINT
         printf(">>> Found file \"%s\"\n", dent->d_name);
 #endif
+
+        if (0 == namecmp(dent->d_name, name))
+        {
+            FF_CHECK(ffAddName(dest, dent->d_name), FF_ADDERROR);
+        }
     }
 
     FF_CHECK(0 == closedir(searchDir), FF_DIRERROR);
@@ -84,6 +91,25 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 int namecmp(const void *name_1, const void *name_2)
 {
     return strncmp((const char *) name_1, (const char *) name_2, NAME_MAX);
+}
+/*)---------------------------------------------------------------------------*/
+
+/*(---------------------------------------------------------------------------*/
+enum FF_CODES ffAddName(pathes_t *dest, const char *name)
+{
+    FF_CHECK(NULL != name, FF_NULLPTR);
+    FF_CHECK(NULL != dest, FF_NULLPTR);
+
+    char **newPathes = realloc(dest->pathes, dest->size + 1);
+    FF_CHECK(NULL != newPathes, FF_MEMERROR);
+    dest->pathes = newPathes;
+    dest->size++;
+
+    char *newName = calloc(PATH_MAX + 1, sizeof *name);
+    FF_CHECK(NULL != newName, FF_MEMERROR);
+    dest->pathes[dest->size - 1] = strncpy(newName, name, PATH_MAX);
+
+    return FF_SUCCESS;
 }
 /*)---------------------------------------------------------------------------*/
 
