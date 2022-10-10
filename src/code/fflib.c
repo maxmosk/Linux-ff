@@ -75,7 +75,8 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 
         if (0 == namecmp(dent->d_name, name))
         {
-            FF_CHECK(ffAddName(dest, dent->d_name), FF_ADDERROR);
+            enum FF_CODES status = ffAddName(dest, dent->d_name);
+            FF_CHECK(FF_SUCCESS == status, status);
         }
     }
 
@@ -90,6 +91,10 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 /*(---------------------------------------------------------------------------*/
 int namecmp(const void *name_1, const void *name_2)
 {
+#ifdef DEBUG_PRINT
+    printf(">>> Compare name \"%s\" with name \"%s\"\n", name_1, name_2);
+#endif
+
     return strncmp((const char *) name_1, (const char *) name_2, NAME_MAX);
 }
 /*)---------------------------------------------------------------------------*/
@@ -100,7 +105,11 @@ enum FF_CODES ffAddName(pathes_t *dest, const char *name)
     FF_CHECK(NULL != name, FF_NULLPTR);
     FF_CHECK(NULL != dest, FF_NULLPTR);
 
-    char **newPathes = realloc(dest->pathes, dest->size + 1);
+#ifdef DEBUG_PRINT
+    printf(">>> Add name \"%s\"\n", name);
+#endif
+
+    char **newPathes = realloc(dest->pathes, (dest->size + 1) * sizeof *dest->pathes);
     FF_CHECK(NULL != newPathes, FF_MEMERROR);
     dest->pathes = newPathes;
     dest->size++;
