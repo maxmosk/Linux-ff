@@ -1,9 +1,29 @@
+/*!
+ *  \file
+ *
+ *  \author Maxim Moskalets
+ *  \date October, 2022
+ *
+ *  \brief Library implementation for file-finder utility (ff)
+ */
+
 #include "fflib.h"
 #include "fflib_helper.h"
 
 
+/*!
+ *  \brief Function to compare two file names (may be regular expressions)
+ *  \params[in] name_1, name_2 File names to compare
+ *  \return Zero in equal case, non-zero in all other
+ */
 static int namecmp(const void *name_1, const void *name_2);
 
+/*!
+ *  \brief Function to add file name to pathes struct
+ *  \param[out] dest Struct to add name
+ *  \param[in] name File name that will be added
+ *  \return Status code from enum EE_CODES
+ */
 static enum FF_CODES ffAddName(pathes_t *dest, const char *name);
 
 

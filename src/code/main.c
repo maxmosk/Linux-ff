@@ -1,3 +1,20 @@
+/*!
+ *  \mainpage
+ *
+ *  \author Maxim Moskalets
+ *  \date October, 2022
+ *
+ *  \brief FF - File finder utility
+ *  \details Utility for Linux operating systems to find file in some directory
+ *
+ *  - \subpage Building
+ *  To build in release mode use command "make" in Linux shell from project root
+ *
+ *  - \subpage Usage
+ *  Run utility by command "ff filename [dirname]" to find file "filename" (optionaly)
+ *  in directory "dirname"
+ */
+
 #include <stdlib.h>
 #include "fflib.h"
 
