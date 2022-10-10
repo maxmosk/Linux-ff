@@ -2,7 +2,7 @@
 
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wpointer-arith \
+CFLAGS=-D NDEBUG -Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wpointer-arith \
     -Wcast-align -Wstrict-prototypes -Wstrict-overflow=2 -Wwrite-strings \
     -Waggregate-return -Wcast-qual -Wswitch-default -Wswitch-enum -Wconversion \
     -Wunreachable-code -Wformat=2 -Winit-self -Wuninitialized \
@@ -15,7 +15,7 @@ CFLAGS=-Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wpointer-arith \
     -Wsync-nand -Wsuggest-final-types -Wsign-conversion \
     -Wsuggest-attribute=noreturn -Winline -Wopenmp-simd -Wpacked \
     -Wredundant-decls -Waggressive-loop-optimizations -Wempty-body \
-    -Wformat-nonliteral -Wformat-signedness -pedantic -std=c99
+    -Wformat-nonliteral -Wformat-signedness -pedantic -std=c99 -I$(HEADERDIR)
 CLDFLAGS=
 
 
@@ -34,7 +34,7 @@ all: $(BUILDDIR) $(EXECUTABLE)
 debug: CFLAGS+= -ggdb3 -O0 \
     -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr \
     -pie -fcheck-new -fstack-check -fstack-protector -fstrict-overflow \
-    -flto-odr-type-merging -fno-omit-frame-pointer -fPIE -d NDEBUG
+    -flto-odr-type-merging -fno-omit-frame-pointer -fPIE -UNDEBUG
 debug: CLDFLAGS+= -lasan
 debug: all
 
@@ -46,7 +46,7 @@ $(EXECUTABLE): $(OBJFILES)
 	$(CC) $(CLDFLAGS) $(CFLAGS) -o $@ $(BUILDDIR)/*.o
 
 $(OBJFILES): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.c $(HEADFILES)
-	$(CC) -c $(CFLAGS) -I$(HEADERDIR) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 
 clean:
