@@ -15,8 +15,18 @@ enum FF_MODES
     FF_MODE_FILEDIR  = 2
 };
 
+enum FF_CODES
+{
+    FF_SUCCESS     = 0,
+    FF_NULLPTR     = 1,
+    FF_INVALIDMODE = 2
+};
+
 
 enum FF_MODES ffGetMode(int argc, const char **argv);
+
+enum FF_CODES ffFindFile(const char *name, const char *dir,
+                    enum FF_MODES mode, size_t *sizeDest, char **pathDest);
 
 
 #endif /* FFLIB_H_INCLUDED */
