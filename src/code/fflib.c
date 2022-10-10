@@ -15,6 +15,7 @@
  *  \brief Function to compare two file names (may be regular expressions)
  *  \params[in] name_1, name_2 File names to compare
  *  \return Zero in equal case, non-zero in all other
+ *  \warning All args must be valid poingers
  */
 static int namecmp(const void *name_1, const void *name_2);
 
@@ -110,7 +111,8 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 enum FF_CODES ffPathesFree(pathes_t *pathes)
 {
     FF_CHECK(NULL != pathes, FF_NULLPTR);
-    FF_CHECK((NULL != pathes->pathes) && (0 != pathes->size), FF_NULLPTR);
+    FF_CHECK((NULL == pathes->pathes) && (0 == pathes->size) ||
+            (NULL == pathes->pathes) && (0 == pathes->size), FF_NULLPTR);
 
 
     for (size_t i = 0; i < pathes->size; i++)
