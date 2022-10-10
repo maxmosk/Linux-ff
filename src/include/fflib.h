@@ -2,11 +2,13 @@
 #define FFLIB_H_INCLUDED
 
 
+#include <dirent.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
 
 
 enum FF_MODES
