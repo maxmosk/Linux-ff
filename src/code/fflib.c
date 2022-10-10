@@ -47,11 +47,11 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode,
     FF_CHECK(NULL != sizeDest, FF_NULLPTR);
     FF_CHECK(NULL != pathDest, FF_NULLPTR);
 
-    const char *curDir = ".";
+    char curDir[PATH_MAX + 1] = ".";
     if (FF_MODE_FILEDIR == mode)
     {
         FF_CHECK(NULL != dir, FF_NULLPTR);
-        curDir = dir;
+        strncpy(curDir, dir, PATH_MAX);
     }
 
 #ifdef DEBUG_PRINT
