@@ -11,6 +11,15 @@
 #endif
 
 #include <dirent.h>
+/*!
+ *  \file
+ *
+ *  \author Maxim Moskalets
+ *  \date October, 2022
+ *
+ *  \brief Linrary for file-finder utility (ff)
+ */
+
 #include <errno.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -34,20 +43,27 @@ do                               \
 while (false)
 
 
+/*!
+ *  \brief Modes of utility
+ *  \note Used for command line arguments
+ */
 enum FF_MODES
 {
-    FF_MODE_INVALID  = 0,
-    FF_MODE_FILEONLY = 1,
-    FF_MODE_FILEDIR  = 2
+    FF_MODE_INVALID  = 0,   /*!< Invalid mode */
+    FF_MODE_FILEONLY = 1,   /*!< Find file in current directory */
+    FF_MODE_FILEDIR  = 2    /*!< Find file in specified directory */
 };
 
+/*
+ *  \brief Codes for main interfce functions
+ */
 enum FF_CODES
 {
-    FF_SUCCESS     = 0,
-    FF_NULLPTR     = 1,
-    FF_INVALIDMODE = 2,
-    FF_DIRERROR    = 3,
-    FF_MEMERROR    = 4
+    FF_SUCCESS     = 0,     /*!< Successful function completion */
+    FF_NULLPTR     = 1,     /*!< Passed NULL-pointer as parametr */
+    FF_INVALIDMODE = 2,     /*!< Invalid mode passed as parametr */
+    FF_DIRERROR    = 3,     /*!< Error in directory opening */
+    FF_MEMERROR    = 4      /*!< Error in memory management function */
 };
 
 typedef struct
