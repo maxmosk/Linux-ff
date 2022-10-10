@@ -14,6 +14,8 @@ int main(int argc, char **argv)
     pathes_t foundPathes = {0};
     ffFindFile(argv[1], argv[2], mode, &foundPathes);
 
+    ffPathesFree(&foundPathes);
+
     return EXIT_SUCCESS;
 }
 
