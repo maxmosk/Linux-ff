@@ -2,7 +2,7 @@
 
 
 CC=gcc
-CFLAGS=-D NDEBUG -Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wpointer-arith \
+CFLAGS=-DNDEBUG -Wall -Wextra -Wfloat-equal -Wundef -Wshadow -Wpointer-arith \
     -Wcast-align -Wstrict-prototypes -Wstrict-overflow=2 -Wwrite-strings \
     -Waggregate-return -Wcast-qual -Wswitch-default -Wswitch-enum -Wconversion \
     -Wunreachable-code -Wformat=2 -Winit-self -Wuninitialized \
@@ -34,7 +34,7 @@ all: $(BUILDDIR) $(EXECUTABLE)
 debug: CFLAGS+= -ggdb3 -O0 \
     -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr \
     -pie -fcheck-new -fstack-check -fstack-protector -fstrict-overflow \
-    -flto-odr-type-merging -fno-omit-frame-pointer -fPIE -UNDEBUG
+    -flto-odr-type-merging -fno-omit-frame-pointer -fPIE -UNDEBUG -DDEBUG_PRINT
 debug: CLDFLAGS+= -lasan
 debug: all
 
