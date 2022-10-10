@@ -2,9 +2,9 @@
 #include "fflib_helper.h"
 
 
-int namecmp(const void *name_1, const void *name_2);
+static int namecmp(const void *name_1, const void *name_2);
 
-enum FF_CODES ffAddName(pathes_t *dest, const char *name);
+static enum FF_CODES ffAddName(pathes_t *dest, const char *name);
 
 
 /*(---------------------------------------------------------------------------*/
@@ -87,12 +87,34 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 }
 /*)---------------------------------------------------------------------------*/
 
+/*(---------------------------------------------------------------------------*/
+enum FF_CODES ffPathesFree(pathes_t *pathes)
+{
+    FF_CHECK(NULL != pathes, FF_NULLPTR);
+    FF_CHECK((NULL != pathes->pathes) && (0 != pathes->size), FF_NULLPTR);
+
+
+    for (size_t i = 0; i < pathes->size; i++)
+    {
+        free(pathes->pathes[i]);
+    }
+
+    free(pathes->pathes);
+
+    pathes->pathes = (void *) 13;
+    pathes->size = SIZE_MAX;
+
+
+    return FF_SUCCESS;
+}
+/*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-int namecmp(const void *name_1, const void *name_2)
+static int namecmp(const void *name_1, const void *name_2)
 {
 #ifdef DEBUG_PRINT
-    printf(">>> Compare name \"%s\" with name \"%s\"\n", name_1, name_2);
+    printf(">>> Compare name \"%s\" with name \"%s\"\n",
+            (const char *) name_1, (const char *) name_2);
 #endif
 
     return strncmp((const char *) name_1, (const char *) name_2, NAME_MAX);
@@ -100,7 +122,7 @@ int namecmp(const void *name_1, const void *name_2)
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-enum FF_CODES ffAddName(pathes_t *dest, const char *name)
+static enum FF_CODES ffAddName(pathes_t *dest, const char *name)
 {
     FF_CHECK(NULL != name, FF_NULLPTR);
     FF_CHECK(NULL != dest, FF_NULLPTR);

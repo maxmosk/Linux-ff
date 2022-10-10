@@ -50,6 +50,8 @@ enum FF_MODES ffGetMode(int argc, const char **argv);
 enum FF_CODES
 ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest);
 
+enum FF_CODES ffPathesFree(pathes_t *pathes);
+
 
 #endif /* FFLIB_H_INCLUDED */
 
