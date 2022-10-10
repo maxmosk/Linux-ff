@@ -5,6 +5,11 @@
 int main(int argc, char **argv)
 {
     enum FF_MODES mode = ffGetMode(argc, (const char **) argv);
+    if (mode == FF_MODE_INVALID)
+    {
+        printf("Invalid command line args. Please, read documentation.\n");
+        return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }
