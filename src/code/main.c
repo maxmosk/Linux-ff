@@ -12,9 +12,10 @@ int main(int argc, char **argv)
     }
 
     pathes_t foundPathes = {0};
-    ffFindFile(argv[1], argv[2], mode, &foundPathes);
+    enum FF_CODES status = ffFindFile(argv[1], argv[2], mode, &foundPathes);
 
-    ffPathesFree(&foundPathes);
+    status = ffPathesFree(&foundPathes);
+
 
     return EXIT_SUCCESS;
 }

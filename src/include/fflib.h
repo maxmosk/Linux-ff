@@ -2,16 +2,16 @@
 #define FFLIB_H_INCLUDED
 
 
-#include <dirent.h>
-
 #if defined(__linux__) || defined(linux) || defined(__linux)
 #include <linux/limits.h>
 #elif defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
 #include <Windef.h>
 #else
-#define MAX_PATH 256
+#define MAX_PATH 255
 #endif
 
+#include <dirent.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -19,6 +19,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+
+
+#define FF_CHECK_CODE(code, ret)\
+do                               \
+{                                 \
+    enum FF_CODES code_ = (code);  \
+    if (FF_SUCCESS != code_)        \
+    {                                \
+        ffperror(code_);              \
+        return (ret);                  \
+    }                                   \
+}                                        \
+while (false)
 
 
 enum FF_MODES

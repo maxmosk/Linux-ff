@@ -46,7 +46,6 @@ enum FF_CODES
 ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest)
 {
     FF_CHECK(FF_MODE_INVALID != mode, FF_INVALIDMODE);
-
     FF_CHECK(NULL != name, FF_NULLPTR);
     FF_CHECK(NULL != dest, FF_NULLPTR);
 
@@ -139,6 +138,7 @@ static enum FF_CODES ffAddName(pathes_t *dest, const char *name)
     char *newName = calloc(PATH_MAX + 1, sizeof *name);
     FF_CHECK(NULL != newName, FF_MEMERROR);
     dest->pathes[dest->size - 1] = strncpy(newName, name, PATH_MAX);
+
 
     return FF_SUCCESS;
 }
