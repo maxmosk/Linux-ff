@@ -180,7 +180,13 @@ static int namecmp(const char *name_1, const char *name_2)
 
         else if ('*' == name_1[i])
         {
-            /* TODO */
+            for (size_t k = 1; name_2[k] != '\0'; k++)
+            {
+                if (0 == namecmp(name_1 + i + 1, name_2 + j + k))
+                {
+                    return 0;
+                }
+            }
         }
 
         else if (name_1[i] != name_2[j])
