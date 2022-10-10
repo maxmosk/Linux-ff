@@ -19,7 +19,7 @@ do                                                                        \
 }                                                                                 \
 while (false)
 #else
-#define FF_ASSERT(cond) do {} while (false)
+#define FF_ASSERT(cond, condstr) do {} while (false)
 #endif
 
 #define FF_CHECK(cond, ret)      \
