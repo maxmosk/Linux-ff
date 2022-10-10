@@ -19,5 +19,5 @@ enum FF_MODES
 enum FF_MODES ffGetMode(int argc, const char **argv);
 
 
-#endif
+#endif /* FFLIB_H_INCLUDED */
 
