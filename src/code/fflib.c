@@ -215,7 +215,7 @@ static enum FF_CODES ffAddName(pathes_t *restrict dest, const char *restrict nam
     printf(">>> Add name \"%s\"\n", name);
 #endif
 
-    char **newPathes = realloc(dest->pathes, (dest->size + 1) * sizeof *dest->pathes);
+    char **restrict newPathes = realloc(dest->pathes, (dest->size + 1) * sizeof *dest->pathes);
     FF_CHECK(NULL != newPathes, FF_MEMERROR);
     dest->pathes = newPathes;
     dest->size++;

@@ -82,7 +82,7 @@ enum FF_CODES
 typedef struct
 {
     size_t size;            /**< Number of founded pathes */
-    char **pathes;          /**< Pointer to array with pointers to pathes */
+    char **restrict pathes; /**< Pointer to array with pointers to pathes */
 } pathes_t;
 
 
