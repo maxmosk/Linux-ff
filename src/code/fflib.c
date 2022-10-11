@@ -32,8 +32,10 @@ static enum FF_CODES ffAddName(pathes_t *dest, const char *name);
 enum FF_MODES ffGetMode(int argc, const char **argv)
 {
     FF_CHECK((argc >= 2) && (argc <= 3), FF_MODE_INVALID);
-    FF_CHECK(argv != NULL, FF_MODE_INVALID);
+    FF_CHECK(NULL != argv, FF_MODE_INVALID);
 
+
+    FF_CHECK(strchr(argv[1], '/') == NULL, FF_MODE_INVALID);
 
     enum FF_MODES mode = FF_MODE_INVALID;
 
