@@ -15,13 +15,14 @@
  *  in directory "dirname"
  */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "fflib.h"
 
 
-int main(int argc, char **argv)
+int main(int argc, const char **argv)
 {
-    enum FF_MODES mode = ffGetMode(argc, (const char **) argv);
+    enum FF_MODES mode = ffGetMode(argc, argv);
     if (mode == FF_MODE_INVALID)
     {
         printf("Invalid command line args. Please, read documentation.\n");
