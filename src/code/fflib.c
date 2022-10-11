@@ -135,7 +135,7 @@ enum FF_CODES ffPathesFree(pathes_t *restrict pathes)
 /*(---------------------------------------------------------------------------*/
 void ffperror(enum FF_CODES errcode)
 {
-    const char *error = NULL;
+    const char *restrict error = NULL;
 
     switch (errcode)
     {
@@ -220,7 +220,7 @@ static enum FF_CODES ffAddName(pathes_t *restrict dest, const char *restrict nam
     dest->pathes = newPathes;
     dest->size++;
 
-    char *newName = calloc(PATH_MAX + 1, sizeof *name);
+    char *restrict newName = calloc(PATH_MAX + 1, sizeof *name);
     FF_CHECK(NULL != newName, FF_MEMERROR);
     dest->pathes[dest->size - 1] = strncpy(newName, name, PATH_MAX);
 
