@@ -17,7 +17,7 @@
  *  \return Zero in equal case, non-zero in all other
  *  \warning All args must be valid poingers
  */
-static int namecmp(const char *name_1, const char *name_2);
+static int namecmp(const char *restrict name_1, const char *restrict name_2);
 
 /*!
  *  \brief Function to add file name to pathes struct
@@ -25,7 +25,7 @@ static int namecmp(const char *name_1, const char *name_2);
  *  \param[in] name File name that will be added
  *  \return Status code from enum FF_CODES
  */
-static enum FF_CODES ffAddName(pathes_t *dest, const char *name);
+static enum FF_CODES ffAddName(pathes_t *restrict dest, const char *restrict name);
 
 
 /*(---------------------------------------------------------------------------*/
@@ -66,7 +66,7 @@ enum FF_MODES ffGetMode(int argc, const char **argv)
 
 /*(---------------------------------------------------------------------------*/
 enum FF_CODES
-ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest)
+ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *restrict dest)
 {
     FF_CHECK(FF_MODE_INVALID != mode, FF_INVALIDMODE);
     FF_CHECK(NULL != name, FF_NULLPTR);
@@ -110,7 +110,7 @@ ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-enum FF_CODES ffPathesFree(pathes_t *pathes)
+enum FF_CODES ffPathesFree(pathes_t *restrict pathes)
 {
     FF_CHECK(NULL != pathes, FF_NULLPTR);
     FF_CHECK(((NULL == pathes->pathes) && (0 == pathes->size)) ||
@@ -168,7 +168,7 @@ void ffperror(enum FF_CODES errcode)
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-static int namecmp(const char *name_1, const char *name_2)
+static int namecmp(const char *restrict name_1, const char *restrict name_2)
 {
 #ifdef DEBUG_PRINT
     printf(">>> Compare name \"%s\" with name \"%s\"\n", name_1, name_2);
@@ -206,7 +206,7 @@ static int namecmp(const char *name_1, const char *name_2)
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-static enum FF_CODES ffAddName(pathes_t *dest, const char *name)
+static enum FF_CODES ffAddName(pathes_t *restrict dest, const char *restrict name)
 {
     FF_CHECK(NULL != name, FF_NULLPTR);
     FF_CHECK(NULL != dest, FF_NULLPTR);
@@ -230,7 +230,7 @@ static enum FF_CODES ffAddName(pathes_t *dest, const char *name)
 /*)---------------------------------------------------------------------------*/
 
 /*(---------------------------------------------------------------------------*/
-enum FF_CODES ffWritePathes(FILE *ostream, const pathes_t *pathes)
+enum FF_CODES ffWritePathes(FILE *ostream, const pathes_t *restrict pathes)
 {
     FF_CHECK(NULL != ostream, FF_NULLPTR);
     FF_CHECK(NULL != pathes, FF_NULLPTR);
@@ -245,3 +245,4 @@ enum FF_CODES ffWritePathes(FILE *ostream, const pathes_t *pathes)
     return FF_SUCCESS;
 }
 /*)---------------------------------------------------------------------------*/
+

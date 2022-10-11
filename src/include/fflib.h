@@ -104,14 +104,14 @@ enum FF_MODES ffGetMode(int argc, const char **argv);
  *  \note Param dir may be NULL in some modes
  */
 enum FF_CODES
-ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *dest);
+ffFindFile(const char *name, const char *dir, enum FF_MODES mode, pathes_t *restrict dest);
 
 /*!
  *  \brief Function to free resources used by pathes_t struct
  *  \param[out] pathes Struct to be freed
  *  \return Status code from enum FF_CODES
  */
-enum FF_CODES ffPathesFree(pathes_t *pathes);
+enum FF_CODES ffPathesFree(pathes_t *restrict pathes);
 
 /*!
  *  \brief Function to print value of interace function return code and errno
@@ -126,7 +126,7 @@ void ffperror(enum FF_CODES errcode);
  *  \param[in] pathes Struct to be written
  *  \return Status code from enum FF_CODES
  */
-enum FF_CODES ffWritePathes(FILE *ostream, const pathes_t *pathes);
+enum FF_CODES ffWritePathes(FILE *ostream, const pathes_t *restrict pathes);
 
 
 #endif /* FFLIB_H_INCLUDED */
